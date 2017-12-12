@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Lista de Produtos</title>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
+	rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="panel panel-default" style="margin: 5px">
+			<div class="panel-heading">
+				<h1 class="panel-title">Produtos a comprar</h1>
+			</div>
+			<div class="panel-body">
+				<!-- Formulario para adicionar novos produtos -->
+				<form class="form-inline" method="POST" th:object="${produto}"
+					th:action="@{/}" style="margin: 20px 0">
+					<div class="form-group">
+					
+						
+							
+						<input type="text" class="form-control" placeholder="Nome Produto"
+							th:field="*{nome}" /> 
+						
+						<input type="text" class="form-control"
+							placeholder="Valor Minimo encontrado" th:field="*{valor}" />
+							
+						<input type="text" class="form-control"
+							placeholder="quantidade a comprar" th:field="*{quantidade}" />
+							
+						<input type="text" class="form-control"
+								placeholder="duração estimada em dias" th:field="*{duracaoEstimada}" />
+						<button type="submit" class="btn btn-primary">Adicionar</button>
+					</div>
+				</form>
+
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Identificador</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Valor(R$)</th>
+							<th scope="col">Duração Estimada(dias)</th>
+							<th scope="col">Quantidade a comprar</th>
+							<th scope="col">Ações</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="produto : ${produtos}">
+							<td scope="col" th:text="${produto.id}"></td>
+							<td scope="col" th:text="${produto.nome}"></td>
+							<td scope="col" th:text="'R$'+${produto.valor}"></td>
+							<td scope="col" th:text="${produto.quantidade}"></td>
+							<td scope="col" th:text="${produto.duracaoEstimada}"></td>							
+							<td><a th:href="@{'/remover/'+${produto.id}}">remover</a></td>
+							<td><a th:href="@{'alterar/' +${produto.id}}">Alterar</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
