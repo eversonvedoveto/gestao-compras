@@ -23,28 +23,29 @@
 					th:action="@{/}" style="margin: 20px 0">
 					<div class="form-group">
 					
-						<label for="id">Id: </label>
-						<input type="text" class="form-control" id="id"
+						
+						<input type="text" class="form-control" id="id" disabled="disabled"
 								placeholder="Identificador" th:field="*{id}" />
 								
-						<label for="nome">Nome: </label>	
-						<input type="text" class="form-control" id="nome"
+							
+						<input type="text" class="form-control" id="nome" disabled="disabled"
 								placeholder="nome" th:field="*{nome}" />
 												
-						<label for="valor">Valor: </label>	
-						<input type="text" class="form-control" id="valor"
-								placeholder="Valor Minimo encontrado" th:field="*{valor}" />	
+							
+						<input type="text" class="form-control" id="valor" disabled="disabled"
+								placeholder="Valor Minimo encontrado" th:field="*{valor}" />
 								
-						<label for="duracao">Duração: </label>
-						<input type="text" class="form-control" id="duracao"
-								placeholder="duração estimada em dias" th:field="*{duracaoEstimada}" />						
+						<input type="text" class="form-control" id="duracao" disabled="disabled"
+								placeholder="duração estimada em dias" th:field="*{duracaoEstimada}" />							
 							
 						<label for="quantidade">Quantidade: </label>	
 						<input type="text" class="form-control" id="quantidade"
 								placeholder="quantidade a comprar" th:field="*{quantidade}" />
 							
+						
+						
 								
-						<button type="submit" class="btn btn-primary">Alterar</button>
+						<button type="submit" class="btn btn-primary">Comprado</button>
 					</div>
 				</form>
 			</div>

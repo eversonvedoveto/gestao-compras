@@ -9,58 +9,87 @@
 	rel="stylesheet" />
 <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
 	rel="stylesheet" />
+	
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+	
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js">
+	
+	
 </head>
 
 <body>
+
+	<form method="post" class="navbar-form navbar-right" th:action="@{/logout}">
+	  <button type="submit" class="btn btn-default">
+	    <span class="glyphicon glyphicon-log-out"></span> 
+	    Sair
+	  </button>
+	</form>
+
+<h1>Gestão de Compras</h1>
+
 	<div class="container">
 		<div class="panel panel-default" style="margin: 5px">
+
+
+
 			<div class="panel-heading">
-				<h1 class="panel-title">Produtos a comprar</h1>
+				<h1 class="panel-title">Produtos</h1>
 			</div>
 			<div class="panel-body">
 				<!-- Formulario para adicionar novos produtos -->
 				<form class="form-inline" method="POST" th:object="${produto}"
 					th:action="@{/}" style="margin: 20px 0">
-					<div class="form-group">
 					
-						
-							
+					<!-- DIV que recebe alertas de inserido ou erro no banco -->
+					<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+					<div class="alert alert-danger" th:text="${mensagemErro}" th:if="${not #strings.isEmpty(mensagemErro)}"></div>
+					<div class="alert alert-warning" th:text="${mensagemApagado}" th:if="${not #strings.isEmpty(mensagemApagado)}"></div>
+					<div class="alert alert-warning" th:text="${mensagemAlterado}" th:if="${not #strings.isEmpty(mensagemAlterado)}"></div>
+					
+					<div class="form-group">
+
+
+
 						<input type="text" class="form-control" placeholder="Nome Produto"
 							th:field="*{nome}" /> 
-						
-						<input type="text" class="form-control"
-							placeholder="Valor Minimo encontrado" th:field="*{valor}" />
 							
 						<input type="text" class="form-control"
-							placeholder="quantidade a comprar" th:field="*{quantidade}" />
+							placeholder="Valor Minimo encontrado" th:field="*{valor}" /> 
 							
-						<input type="text" class="form-control"
-								placeholder="duração estimada em dias" th:field="*{duracaoEstimada}" />
+						<input	type="text" class="form-control"
+								placeholder="duração estimada em dias"
+								th:field="*{duracaoEstimada}" /> 
+							
+						<input type="text"	class="form-control" placeholder="quantidade a comprar"
+							th:field="*{quantidade}" />
+
 						<button type="submit" class="btn btn-primary">Adicionar</button>
 					</div>
 				</form>
 
-				<table class="table table-bordered">
+				<table id="minhaTabela" class="hover" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th scope="col">Identificador</th>
-							<th scope="col">Nome</th>
-							<th scope="col">Valor(R$)</th>
-							<th scope="col">Duração Estimada(dias)</th>
-							<th scope="col">Quantidade a comprar</th>
-							<th scope="col">Ações</th>
 							
+							<th>Quantidade a comprar</th>
+							<th>Nome</th>
+							<th>Valor(R$)</th>
+							<th>Duração Estimada(dias)</th>							
+							<th>Ações</th>
+							<th></th>
+
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="produto : ${produtos}">
-							<td scope="col" th:text="${produto.id}"></td>
-							<td scope="col" th:text="${produto.nome}"></td>
-							<td scope="col" th:text="'R$'+${produto.valor}"></td>
-							<td scope="col" th:text="${produto.quantidade}"></td>
-							<td scope="col" th:text="${produto.duracaoEstimada}"></td>							
-							<td><a th:href="@{'/remover/'+${produto.id}}">remover</a></td>
-							<td><a th:href="@{'alterar/' +${produto.id}}">Alterar</a></td>
+						<tr th:each="produto : ${produtos}">							
+							<td th:text="${produto.quantidade}"></td>
+							<td th:text="${produto.nome}"></td>
+							<td th:text="'R$'+${produto.valor}"></td>
+							<td th:text="${produto.duracaoEstimada}"></td>														
+							<td><a th:href="@{'/remover/'+${produto.id}}">Remover</a></td>
+							<td><a th:href="@{'alterar/' +${produto.id}}">Alterar </a></td>
+													
 						</tr>
 					</tbody>
 				</table>
@@ -68,5 +97,14 @@
 			</div>
 		</div>
 	</div>
+	<script
+			  src="https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+	
+	<script>$(document).ready( function () {
+	    $('#minhaTabela').DataTable();
+	} );</script>
 </body>
 </html>
